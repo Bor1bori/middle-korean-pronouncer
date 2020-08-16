@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="akinput.js"></script>
+  <script type="text/javascript" src="pronounce.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>중세국어 발음 변환기</h1>
+
+<p>입력</p>
+
+  <textarea id='inputArea'></textarea>
+  <p>
+    입력 방법 설명<br/>
+  ㅿ: ㅁ + Shift (혹은 ㅁ.)<br/>
+  ㆁ: ㅇ + Shift (혹은 ㅇ.)<br/>
+  ㆆ: ㅎ + Shift (혹은 ㅎ.)<br/>
+  ᄼ: ㅋ + Shift (혹은 ㅋ.)<br/>
+  ᄾ: ㅌ + Shift (혹은 ㅌ.)<br/>
+  ᅎ: ㅊ + Shift (혹은 ㅊ.)<br/>
+  ᅐ: ㅍ + Shift (혹은 ㅍ.)<br/>
+  ᅔ: ㅠ + Shift (혹은 ㅠ.)<br/>
+  ᅕ: ㅜ + Shift (혹은 ㅜ.)<br/>
+  ㆍ: ㅏㅏ<br/>
+  합용/각자 병서: 각 자음 혹음 모음을 순서대로 입력<br/>
+  </p>
+  <button onclick="pronounce()">발음 변환</button>
+  <div id='result'></div>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(function(){
+            $('#inputArea').akInput(); // akorn-input 입력기 initializing
+        });
+    });
+    function pronounce() {
+      const inputArea = document.getElementById('inputArea')
+      const resultElem = document.getElementById('result')
+      resultElem.innerHTML=splittedStringToPhoneticSymbols(splitSyllable(inputArea.value))
+      log('변환전', inputArea.value);
+      log('변환후', splitSyllable(inputArea.value))
+    }
+    function log(key, stringToLog) {
+      var str = key + ' ';
+      for ( var i = 0 ; i <  stringToLog.length ; i ++){
+        str += '0x' +  stringToLog.charCodeAt(i).toString(16) + ' ';
+      }
+      console.log(str);
+    }
+  </script>
+</body>
+</html>
